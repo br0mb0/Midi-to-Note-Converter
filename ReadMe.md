@@ -6,7 +6,7 @@ This will turn your MIDI files into a string that contains only the notes
 
 I think you need to have my module that i used so go ahead and
 
-``pip install MIDI``
+``pip install MIDIfile``
 
 THEN to run it just go
 
