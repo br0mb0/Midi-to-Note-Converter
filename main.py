@@ -1,5 +1,20 @@
 from MIDI import MIDIFile
 from sys import argv
+
+def parse(file):
+    with open("log.txt", "w") as f:
+        c=MIDIFile(file)
+        c.parse()
+        f.write(str(c))
+        for idx, track in enumerate(c):
+            track.parse()
+            print(f'Track {idx}:')
+            for ev in track:
+                print("   ",hex(ev.header))
+                print(str(ev))
+                f.write(f"   {hex(ev.header)}\n")
+                f.write(f"{str(ev)}\n\n")
+        
 def Makenotes(file, interval):
     notes = ""
     File = MIDIFile(file)
@@ -14,7 +29,7 @@ def Makenotes(file, interval):
                     print(ev)
             
         print('\n')
-    indx = int(input('Which track')) 
+    indx = int(input('Which track ')) 
     print('\n')
     Track = File[indx]
     Track.parse()
@@ -35,9 +50,13 @@ def Makenotes(file, interval):
            notes += (note+" ")
            time = event.time
     print(notes)
-if len(argv) == 2:
-    arg2 = 900
-else:
-    arg2 = int(argv[2])
     
-Makenotes(argv[1],arg2)
+if argv[2] == 'db':
+    parse(argv[1])
+else:            
+    if len(argv) == 2:
+        arg2 = 900
+    else:
+        arg2 = int(argv[2])
+        
+    Makenotes(argv[1],arg2)
